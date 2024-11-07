@@ -1,12 +1,15 @@
 # Mi Proyecto (Angular + PHP)
 
-Este repositorio contiene el código del frontend (Angular) y el backend (PHP) para un sistema CRUD de productos.
+Este repositorio contiene el código del frontend (Angular) y el backend (PHP) para un sistema de Inventario.
 
 ## Estructura del proyecto
 - **`front-end/`**: Contiene el código fuente del frontend desarrollado en Angular.
 - **`back-end/`**: Contiene el código fuente del backend desarrollado en PHP (MVC).
 
-## Instalación
+## Requisito para la instalacion:
+## 1 Descargar e Instalar node 'https://nodejs.org/en/download/package-manager'
+## 2 Instalar Angular 'npm install -g @angular/cli'
+## 3 Descargar e Instalar XAMP https://www.apachefriends.org/es/download.html
 
 ### 1. Frontend (Angular)
 Sigue las instrucciones dentro de `frontend/README.md` para configurar y ejecutar el frontend.
