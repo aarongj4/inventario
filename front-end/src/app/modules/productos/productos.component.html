@@ -1,0 +1,39 @@
+<div class="row" style="width: 100vw; height: 100vh;">
+
+  <!-- nav -->
+   <div class="col-2">
+     <app-nav></app-nav>
+  </div>
+
+  <div class="col-10">
+
+
+      <br>
+      <h4>Agregar Productos</h4>
+
+      <form [formGroup]="productosForm">
+        <div class="col-4">
+
+          <div class="mb-3">
+            <label for="Producto" class="form-label">Producto</label>
+            <input type="text" class="form-control" id="Producto" formControlName="Nombre" aria-describedby="ProductoHelp">
+            <div id="ProductoHelp" class="form-text"></div>
+          </div>
+          <div class="mb-3">
+            <label for="Precio" class="form-label">Precio</label>
+            <input type="text" class="form-control" id="Precio" formControlName="Precio">
+          </div>
+          <div class="mb-3">
+            <label for="Cantidad" class="form-label">Cantidad</label>
+            <input type="text" class="form-control" id="Cantidad" formControlName="Cantidad">
+          </div>
+
+          <button type="submit" class="btn btn-primary" (click)="agregarProducto()">Guardar</button>
+        </div>
+      </form>
+
+
+
+
+  </div>
+</div>

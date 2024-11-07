@@ -1,0 +1,8 @@
+
+create database inventario;
+use inventario;
+
+create table rol(idRol int(2), tipoRol varchar(50), primary key(idRol));
+create table productos( idProducto int(6) not null AUTO_INCREMENT, nombre varchar(40), precio decimal(16,2), cantidad int(6), estatus int(1), primary key(idProducto));
+create table usuarios( idUsuario int(6) not null AUTO_INCREMENT, nombre varchar(100), correo varchar(50), contrasena varchar(25), idRol int(2), estatus int(1), primary key(idUsuario), FOREIGN key(idRol) REFERENCES rol(idRol) );
+create table historial( idHistorial int(6), tipoMovimiento ENUM('Entrada','Salida'), idUsuario int(6), idProducto int(6), fecha datetime, primary key (idHistorial), FOREIGN key(idUsuario) REFERENCES usuarios(idUsuario), FOREIGN key(idProducto) REFERENCES productos(idProducto) );

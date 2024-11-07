@@ -1,0 +1,16 @@
+
+.profileImage{
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+}
+
+
+
+.cardbodyColor{
+  background-color: #ebf2fa;
+}
+
+a{
+  text-decoration: none;
+}

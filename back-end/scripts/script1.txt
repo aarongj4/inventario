@@ -1,0 +1,65 @@
+-- Este Script se utilizo para el punto 1 de la evaluacion
+
+create database db1;
+use db1;
+create table productos( idProducto INT(6) AUTO_INCREMENT not null, nombre varchar(40), precio decimal(16,2), primary key(idProducto));
+create table ventas( idVenta int(6) AUTO_INCREMENT not null, idProducto int(6), cantidad int(6), primary key(idVenta),  FOREIGN KEY (idProducto) REFERENCES productos(idProducto)  );
+
+-- datos tabla 1 
+insert into productos values(1, "LAPTOP", 3000.00); 
+insert into productos values(2, "PC", 4000.00); 
+insert into productos values(3, "MOUSE", 100.00); 
+insert into productos values(4, "TECLADO", 150.00); 
+insert into productos values(5, "MONITOR", 2000.00); 
+insert into productos values(6, "MICROFONO", 350.00); 
+insert into productos values(7, "AUDIFONOS", 450.00); 
+
+-- datos tabla 2 
+
+insert into ventas values(1, 5, 8); 
+insert into ventas values(2, 1, 15); 
+insert into ventas values(3, 6, 13); 
+insert into ventas values(4, 6, 4); 
+insert into ventas values(5, 2, 3); 
+insert into ventas values(6, 5, 1); 
+insert into ventas values(7, 4, 5); 
+insert into ventas values(8, 2, 5); 
+insert into ventas values(9, 6, 2); 
+insert into ventas values(10, 1, 8); 
+
+////////////////////
+////////////////////
+consultas
+////////////////////
+////////////////////
+    1.5
+        SELECT 
+           	p.idProducto, 
+           	nombre,
+           	idVenta
+           	FROM productos p
+           	INNER JOIN ventas v ON p.idProducto = v.idProducto
+           	ORDER BY idVenta
+           	;
+
+    1.6
+    SELECT 
+           	p.idProducto, 
+           	nombre,
+           	SUM(v.cantidad) AS totalProductos
+           	
+           	FROM productos p
+           	INNER JOIN ventas v ON p.idProducto = v.idProducto
+           	GROUP BY idProducto
+           	;
+    1.7
+    SELECT 
+           	p.idProducto, 
+           	nombre,
+           	IFNULL( SUM(v.cantidad)  , 0 ) AS productosVendidos,
+           	precio,
+           	IFNULL( SUM(v.cantidad * p.precio), 0 ) AS totalPorProducto
+           	FROM productos p
+           	left JOIN ventas v ON p.idProducto = v.idProducto
+           	GROUP BY idProducto
+           	;

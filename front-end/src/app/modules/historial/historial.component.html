@@ -1,0 +1,51 @@
+<div class="row" style="width: 100vw; height: 100vh;">
+
+   <div class="col-2">
+     <app-nav></app-nav>
+  </div>
+
+  <div class="col-10">
+
+      <br>
+      <h4>Historial</h4>
+      <br>
+      <div class="d-flex justify-content-start">
+        <div class="col-1">
+          <select class="form-select" (change)="filtroHistorial()" aria-label="Default select example" [(ngModel)]="tpMov" >
+            <option value="Todos">Todos</option>
+            <option value="Entrada">Entrada</option>
+            <option value="Salida">Salida</option>
+          </select>
+
+        </div>
+      </div>
+
+      <table class="table mt-3">
+        <thead>
+          <tr>
+            <th scope="col">Tipo de Movimiento</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Usuario</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (his of historialFiltrado; track $index) {
+            <tr>
+              <td>{{his.idHistorial}}-{{his.tipoMovimiento}}</td>
+              <td>{{his.fecha | date: 'dd/MM/yyyy HH:mm'}}</td>
+              <td>{{his.producto}}</td>
+              <td>{{his.usuario}}</td>
+            </tr>
+          }
+
+        </tbody>
+      </table>
+
+
+
+
+
+
+  </div>
+</div>

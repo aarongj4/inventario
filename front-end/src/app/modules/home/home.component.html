@@ -1,0 +1,155 @@
+<div class="row" style="width: 100vw; height: 100vh">
+  <!-- nav -->
+  <div class="col-2">
+    <app-nav></app-nav>
+  </div>
+
+  <div class="col-10">
+    <br />
+    <h4>Inventario</h4>
+    <br />
+    <div class="d-flex justify-content-start">
+      @if( rol == '1' ){
+
+      <button
+        class="btn btn-primary text-end"
+        (click)="direccionamiento('productos')"
+        ngbTooltip="Agregar productos"
+      >
+        <i class="fas fa-plus"></i>
+      </button>
+      }
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col-1">Acciones</th>
+          <th scope="col-5">Producto</th>
+          <th scope="col-3">Precio</th>
+          <th scope="col-2">Cantidad</th>
+          <th scope="col-1">Estatus</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (prod of productos; track $index) {
+        <tr>
+          <td>
+            @if(rol == '1' ){
+            <button
+              class="btn btn-info btn-sm"
+              ngbTooltip="Entrada de Inventario"
+              (click)="selectProducto(prod)"
+              data-bs-toggle="modal"
+              data-bs-target="#editInventario"
+            >
+              <i class="fas fa-plus-circle text-white"></i>
+            </button>
+            <button
+              class="btn btn-sm ms-2"
+              [ngClass]="{
+                btnActivate: prod.estatus === 1,
+                btnInactivate: prod.estatus === 0
+              }"
+              [ngbTooltip]="prod.estatus === 1 ? 'Desactivar?' : 'Activar?'"
+              (click)="actualizarEstado(prod.idProducto, prod.estatus)"
+            >
+              <i class="fas fa-power-off"></i>
+            </button>
+
+            }@else if (rol == '2') {
+
+              @if( prod.estatus === 1 ){
+
+                <button
+                class="btn btn-danger btn-sm"
+                ngbTooltip="Salida de Inventario"
+                (click)="selectProducto(prod)"
+                data-bs-toggle="modal"
+                data-bs-target="#editInventario"
+                [disabled]="prod.cantidad< 1"
+                >
+                <i class="fas fa-minus-circle text-white"></i>
+              </button>
+            }
+            }
+          </td>
+          <td>{{ prod.nombre }}</td>
+          <td>{{ prod.precio }}</td>
+          <td>{{ prod.cantidad }}</td>
+          <td>
+            {{ prod.estatus === 1 ? "Activo" : "Inactivo" }}
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="editInventario"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> @if (rol == '1' ) {Entrada}@else{Salida} de Inventario</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editProductosForm">
+          <div class="mb-3">
+            <label for="Producto" class="form-label">Producto</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Producto"
+              formControlName="Nombre"
+              aria-describedby="ProductoHelp"
+            />
+            <div id="ProductoHelp" class="form-text"></div>
+          </div>
+          <div class="mb-3">
+            <label for="Precio" class="form-label">Precio</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Precio"
+              formControlName="Precio"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="Cantidad" class="form-label">Cantidad</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Cantidad"
+              formControlName="Cantidad"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="guardarInventario()"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
